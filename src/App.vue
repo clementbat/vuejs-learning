@@ -3,7 +3,7 @@
         <div class="hello">
             <div class="header">
                 <button class="button" @click="loadData">Load data</button>
-                <button class="button" @click="data = []">Clear</button>
+                <button class="button" @click="clearData">Clear</button>
             </div>
             <div class="data-list">
 
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+    import { mapActions, mapState } from 'vuex'
+
     const URL = "https://opendata.paris.fr/api/records/1.0/search//?dataset=zones-touristiques-internationales&rows=5";
 
     const loadJSon = async (url) => {
@@ -35,21 +37,15 @@
     };
 
     export default {
-        data() {
-            return {
-                data: []
-            };
-        },
         methods: {
-            async loadData() {
-                try {
-                    const { records } = await loadJSon(URL)
-                    this.data = records
-                } catch (error) {
-                    console.error('Error while loading the data:', error)
-                }
-            },
+            ...mapActions([
+                'loadData',
+                'clearData',
+            ]),
         },
+        computed: mapState([
+            'data'
+        ]),
     };
 </script>
 
