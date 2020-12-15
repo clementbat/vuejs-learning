@@ -2,7 +2,7 @@
     <div class="main">
         <div class="hello">
             <div class="header">
-                <button class="button">Load data</button>
+                <button class="button" @click="loadData">Load data</button>
                 <button class="button" @click="data = []">Clear</button>
             </div>
             <div class="data-list">
@@ -39,7 +39,17 @@
             return {
                 data: []
             };
-        }
+        },
+        methods: {
+            async loadData() {
+                try {
+                    const { records } = await loadJSon(URL)
+                    this.data = records
+                } catch (error) {
+                    console.error('Error while loading the data:', error)
+                }
+            },
+        },
     };
 </script>
 
