@@ -8,18 +8,13 @@ import HelloView from './Hello.vue';
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: '/', component: DefaultView
-    },
-    {
-        path: '/goodbye', component: GoodbyeView
-    },
-    {
-        path: '/hello/:name', component: HelloView
-    },
+    { path: '/', component: DefaultView },
+    { path: '/goodbye', component: GoodbyeView },
+    { path: '/hello/:name', component: HelloView },
+    { path: '/byebye', redirect: '/goodbye' },
+    { path: '/default', redirect: '/' },
 ];
 
 export default new VueRouter({
-    mode: 'history',
     routes
 });
