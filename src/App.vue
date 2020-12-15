@@ -3,7 +3,11 @@
         <div class="hello">
             <div class="header">Here is a nice toggle to switch between views</div>
             <div class="toggler">
-                <toggler :tabs="tabs" selected="default"></toggler>
+                <toggler
+                    :tabs="tabs"
+                    :selected="selected"
+                    @select="toggleView"
+                ></toggler>
             </div>
             <router-view></router-view>
         </div>
@@ -16,16 +20,31 @@
     export default {
         data() {
             return {
-                tabs: [{
-                    tab: "default",
-                    label: "Default"
-                }],
-                selected: ""
+                tabs: [
+                    {
+                        tab: "default",
+                        label: "Default"
+                    },
+                    {
+                        tab: "hello/toto",
+                        label: "Hello"
+                    },
+                    {
+                        tab: "goodbye",
+                        label: "Goodbye"
+                    },
+                ],
+                selected: "default",
             };
         },
         components: {
             Toggler,
-        }
+        },
+        methods: {
+            toggleView(viewPath) {
+                this.$router.replace({ path: `/${viewPath}` })
+            },
+        },
     };
 </script>
 
